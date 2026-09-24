@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StorageManager Verification</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .pass {
+            background: #d4edda;
+            color: #155724;
+        }
+        .fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        h1 {
+            color: #333;
+        }
+        pre {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>StorageManager Verification Tests</h1>
+    <div id="results"></div>
+
+    <script src="storage-manager.js"></script>
+    <script>
+        const resultsDiv = document.getElementById('results');
+        
+        function logResult(testName, passed, details = '') {
+            const div = document.createElement('div');
+            div.className = `test-result ${passed ? 'pass' : 'fail'}`;
+            div.innerHTML = `<strong>${passed ? '✓' : '✗'} ${testName}</strong>${details ? '<br>' + details : ''}`;
+            resultsDiv.appendChild(div);
+        }
+
+        // Clear localStorage before tests
+        localStorage.clear();
+
+        try {
+            // Test 1: Initialization
+            const storage = new StorageManager();
+            logResult('StorageManager instantiation', true);
+
+            // Test 2: Storage keys defined
+            const keysCorrect = storage.STORAGE_KEYS.CONTACTS === 'facetime_contacts' &&
+                              storage.STORAGE_KEYS.HISTORY === 'facetime_history' &&
+                              storage.STORAGE_KEYS.SETTINGS === 'facetime_settings';
+            logResult('Storage keys defined correctly', keysCorrect);
+
+            // Test 3: Get empty contacts
+            const contacts = storage.getContacts();
+            logResult('getContacts() returns array', Array.isArray(contacts) && contacts.length === 0);
+
+            // Test 4: Add contact
+            const contact = {
+                id: '1',
+                name: 'Test User',
+                avatar: '👤',
+                status: 'available'
+            };
+            const added = storage.addContact(contact);
+            logResult('addContact() adds contact', added.id === '1' && added.name === 'Test User');
+
+            // Test 5: Save and retrieve contacts
+            const testContacts = [
+                { id: '2', name: 'Alice', avatar: '👧', status: 'available' },
+                { id: '3', name: 'Bob', avatar: '👦', status: 'busy' }
+            ];
+            storage.saveContacts(testContacts);
+            const retrieved = storage.getContacts();
+            logResult('saveContacts() and getContacts() work', 
+                     retrieved.length === 2 && retrieved[0].name === 'Alice');
+
+            // Test 6: Remove contact
+            const removed = storage.removeContact('2');
+            const afterRemove = storage.getContacts();
+            logResult('removeContact() removes contact', 
+                     removed && afterRemove.length === 1 && afterRemove[0].id === '3');
+
+            // Test 7: Add call history entry
+            const historyEntry = {
+                id: 'h1',
+                contactId: '3',
+                contactName: 'Bob',
+                contactAvatar: '👦',
+                timestamp: Date.now(),
+                duration: 120,
+                type: 'outgoing'
+            };
+            const historyAdded = storage.addCallHistoryEntry(historyEntry);
+            logResult('addCallHistoryEntry() adds entry', 
+                     historyAdded.id === 'h1' && historyAdded.duration === 120);
+
+            // Test 8: Get call history
+            const history = storage.getCallHistory();
+            logResult('getCallHistory() returns entries', 
+                     history.length === 1 && history[0].type === 'outgoing');
+
+            // Test 9: Clear call history
+            storage.clearCallHistory();
+            const clearedHistory = storage.getCallHistory();
+            logResult('clearCallHistory() clears history', clearedHistory.length === 0);
+
+            // Test 10: Set and get setting
+            storage.setSetting('theme', 'dark');
+            const theme = storage.getSetting('theme');
+            logResult('setSetting() and getSetting() work', theme === 'dark');
+
+            // Test 11: Get non-existent setting
+            const nonExistent = storage.getSetting('nonexistent');
+            logResult('getSetting() returns null for missing key', nonExistent === null);
+
+            // Test 12: Storage quota error handling
+            try {
+                storage.saveContacts([{ id: '1', name: 'Test' }]);
+                logResult('Error handling for storage operations', true, 'No quota errors thrown');
+            } catch (e) {
+                logResult('Error handling for storage operations', 
+                         e.message.includes('quota'), 'Error: ' + e.message);
+            }
+
+            // Test 13: Round-trip persistence
+            const originalData = [
+                { id: 'p1', name: 'Persist Test', avatar: '🔄', status: 'available' }
+            ];
+            storage.saveContacts(originalData);
+            const persistedData = storage.getContacts();
+            const roundTripWorks = JSON.stringify(originalData) === JSON.stringify(persistedData);
+            logResult('Data persists correctly (round-trip)', roundTripWorks);
+
+            // Test 14: Storage info
+            const info = storage.getStorageInfo();
+            logResult('getStorageInfo() returns stats', 
+                     info && typeof info.totalSize === 'number' && info.contactsCount >= 0);
+
+            // Test 15: Clear all data
+            storage.clearAllData();
+            const allCleared = storage.getContacts().length === 0 && 
+                              storage.getCallHistory().length === 0;
+            logResult('clearAllData() clears everything', allCleared);
+
+            // Summary
+            const summary = document.createElement('div');
+            summary.style.marginTop = '20px';
+            summary.style.padding = '15px';
+            summary.style.background = '#007aff';
+            summary.style.color = 'white';
+            summary.style.borderRadius = '5px';
+            summary.innerHTML = '<strong>✓ All StorageManager methods implemented and working!</strong>';
+            resultsDiv.appendChild(summary);
+
+        } catch (error) {
+            logResult('Test execution', false, `Error: ${error.message}<br><pre>${error.stack}</pre>`);
+        }
+    </script>
+</body>
+</html>

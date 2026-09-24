@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>iPhone 16 Pro Max</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/apps.css">
+  <link rel="stylesheet" href="apps/facetime/facetime-styles.css">
+  <style>
+    #app-window { background: #000; }
+  </style>
+</head>
+<body>
+
+<!-- Phone shell -->
+<div id="phone">
+  <!-- Hardware buttons -->
+  <div class="btn-action" title="Action Button"></div>
+  <div class="btn-vol-up" title="Volume Up"></div>
+  <div class="btn-vol-down" title="Volume Down"></div>
+  <div class="btn-power" title="Power"></div>
+  <!-- Bottom -->
+  <div class="usbc"></div>
+  <div class="speaker-left"></div>
+  <div class="speaker-right"></div>
+
+  <!-- Screen -->
+  <div id="screen">
+    <div id="screen-inner">
+
+      <!-- Brightness overlay -->
+      <div id="brightness-overlay"></div>
+
+      <!-- ===== LOCK SCREEN ===== -->
+      <div class="view active" id="lock-screen">
+        <div class="lock-bg"></div>
+        <div id="lock-screen-content">
+          <div id="lock-time">00:00</div>
+          <div id="lock-date">Понедельник, 1 января</div>
+          <div id="lock-notifications"></div>
+        </div>
+        <div id="swipe-hint">Смахните вверх для разблокировки</div>
+      </div>
+
+      <!-- ===== PIN SCREEN ===== -->
+      <div class="view" id="pin-screen">
+        <div id="pin-title">Введите пароль</div>
+        <div id="pin-dots">
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+        </div>
+        <div id="pin-keypad">
+          <button class="pin-key" onclick="handlePinKey('1')">1<span class="sub"></span></button>
+          <button class="pin-key" onclick="handlePinKey('2')">2<span class="sub">ABC</span></button>
+          <button class="pin-key" onclick="handlePinKey('3')">3<span class="sub">DEF</span></button>
+          <button class="pin-key" onclick="handlePinKey('4')">4<span class="sub">GHI</span></button>
+          <button class="pin-key" onclick="handlePinKey('5')">5<span class="sub">JKL</span></button>
+          <button class="pin-key" onclick="handlePinKey('6')">6<span class="sub">MNO</span></button>
+          <button class="pin-key" onclick="handlePinKey('7')">7<span class="sub">PQRS</span></button>
+          <button class="pin-key" onclick="handlePinKey('8')">8<span class="sub">TUV</span></button>
+          <button class="pin-key" onclick="handlePinKey('9')">9<span class="sub">WXYZ</span></button>
+          <button class="pin-key emergency" onclick="showView('lock-screen')">Отмена</button>
+          <button class="pin-key" onclick="handlePinKey('0')">0<span class="sub"></span></button>
+          <button class="pin-key del" onclick="handlePinKey('del')">⌫</button>
+        </div>
+      </div>
+
+      <!-- ===== HOME SCREEN ===== -->
+      <div class="view" id="home-screen">
+        <div id="home-wallpaper"></div>
+
+        <!-- Status bar -->
+        <div id="status-bar">
+          <div id="status-time" onclick="openNotifCenter()" style="cursor:pointer"></div>
+          <div id="status-icons" onclick="openControlCenter()" style="cursor:pointer;pointer-events:all"></div>
+        </div>
+
+        <!-- Dynamic Island -->
+        <div id="dynamic-island">
+          <div id="island-content"></div>
+        </div>
+
+        <!-- App pages -->
+        <div id="pages-container"></div>
+
+        <!-- Page dots -->
+        <div id="page-dots"></div>
+
+        <!-- Dock -->
+        <div id="dock"></div>
+      </div>
+
+      <!-- ===== APP WINDOW ===== -->
+      <div id="app-window">
+        <div id="app-header">
+          <div id="app-back" onclick="closeApp()">‹ Домой</div>
+          <div id="app-title"></div>
+          <div style="width:60px"></div>
+        </div>
+        <div id="app-content"></div>
+      </div>
+
+      <!-- ===== CONTROL CENTER ===== -->
+      <div id="control-center">
+        <div id="cc-bg" onclick="closeControlCenter()"></div>
+        <div id="cc-content"></div>
+      </div>
+
+      <!-- ===== NOTIFICATION CENTER ===== -->
+      <div id="notification-center">
+        <div id="nc-bg" onclick="closeNotifCenter()"></div>
+        <div id="nc-content"></div>
+      </div>
+
+      <!-- ===== HOME INDICATOR ===== -->
+      <div id="home-indicator" onclick="goHome()"></div>
+
+    </div><!-- /screen-inner -->
+  </div><!-- /screen -->
+</div><!-- /phone -->
+
+<div style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.3);font-size:12px;pointer-events:none;text-align:center">
+  iPhone 16 Pro Max Web Simulator · Свайп вверх = домой · Свайп вниз = уведомления
+</div>
+
+<script src="js/core.js"></script>
+<script src="apps/facetime/facetime-models.js"></script>
+<script src="apps/facetime/facetime-utils.js"></script>
+<script src="apps/facetime/facetime-app.js"></script>
+<script src="js/apps.js"></script>
+</body>
+</html>

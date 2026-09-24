@@ -1,0 +1,243 @@
+/* =========================================================
+   FaceTime App — Styles
+   ========================================================= */
+
+#facetime-app {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tab styles */
+.ft-tab {
+  transition: all 0.2s ease;
+}
+
+.ft-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ft-tab.active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Contact list item hover effect */
+#facetime-app > div > div:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Video call button hover */
+#facetime-app button:hover {
+  opacity: 0.8;
+  transform: scale(0.95);
+  transition: all 0.15s ease;
+}
+
+/* Active call animations */
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.call-ring {
+  animation: pulse 1.5s ease-out infinite;
+}
+
+/* Local video PIP draggable styles */
+#local-video-pip {
+  cursor: move;
+  user-select: none;
+  transition: box-shadow 0.2s ease;
+}
+
+#local-video-pip:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+#local-video-pip:active {
+  cursor: grabbing;
+}
+
+/* Media controls buttons */
+#facetime-active button {
+  transition: all 0.15s ease;
+}
+
+#facetime-active button:active {
+  transform: scale(0.9);
+}
+
+/* Search input focus */
+#ft-search:focus {
+  background: #3a3a3c;
+}
+
+/* Scrollbar styling for call history */
+#facetime-app > div:last-child {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#facetime-app > div:last-child::-webkit-scrollbar {
+  display: none;
+}
+
+/* Screen transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#facetime-calling {
+  animation: fadeIn 0.3s ease;
+}
+
+#facetime-active {
+  animation: fadeIn 0.3s ease;
+}
+
+/* iOS-style backdrop blur effect */
+.ft-blur {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Call type indicators */
+.call-type-outgoing {
+  color: #007AFF;
+}
+
+.call-type-incoming {
+  color: #30d158;
+}
+
+.call-type-missed {
+  color: #ff3b30;
+}
+
+/* Empty state styling */
+.ft-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ft-empty-state-icon {
+  font-size: 60px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.ft-empty-state-text {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.ft-empty-state-subtext {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* Loading spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ft-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Badge for notification counts */
+.ft-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ff3b30;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 16px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Accessibility improvements */
+button:focus-visible {
+  outline: 2px solid #007AFF;
+  outline-offset: 2px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode support (already dark by default) */
+@media (prefers-color-scheme: dark) {
+  #facetime-app {
+    color-scheme: dark;
+  }
+}
+
+/* Responsive adjustments for different iPhone sizes */
+@media (max-width: 375px) {
+  #facetime-app button {
+    width: 48px;
+    height: 48px;
+  }
+  
+  #local-video-pip {
+    width: 80px;
+    height: 106px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  #facetime-app {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  button {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+}
