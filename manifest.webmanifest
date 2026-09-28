@@ -1,0 +1,1 @@
+{"name":"iPhone Remote Experience","short_name":"iPhone Remote","description":"Desktop-class iPhone web simulator controlled with keyboard and mouse.","start_url":"./","display":"standalone","background_color":"#07080b","theme_color":"#07080b","orientation":"any","icons":[{"src":"icons/settings.png","sizes":"any","type":"image/png","purpose":"any maskable"}]}
