@@ -1,19 +1,19 @@
-# iPhone Remote Experience
+# iPhone 17 Pro Max Remote Experience
 
-A desktop-class iPhone web simulator designed to feel like a live device connection rather than a static mockup.
+An independent desktop-class phone simulator designed to feel like a live connected device rather than a static mockup.
 
-## Live experience
+## Experience
 
+- Realistic iPhone 17 Pro Max hardware profile with 6.9-inch OLED proportions, aluminum unibody, Camera Control and USB-C
+- Original copyright-safe simulator icon set and independent interface artwork
 - Four display modes: Device, Screen Mirror, Presentation and Floating
-- Mouse-as-touch pointer, click ripples, swipe gestures and hardware controls
-- Desktop keyboard bridge and virtual keyboard
-- Spotlight app launcher and app switcher
-- Shortcuts for Home, Lock, Control Center, notifications and screenshots
-- Device Inspector with live FPS, battery, active process and permissions
-- Screen capture, display recording and state export
-- Portrait/landscape rotation, fullscreen mode and adaptive scaling
-- Persistent runtime preferences and PWA offline shell
-- 36 apps, Lock Screen, PIN, Home Screen, widgets, Dynamic Island, Control Center, notifications and FaceTime
+- Mouse-as-touch pointer, swipe gestures, hardware buttons and keyboard bridge
+- Spotlight launcher, app switcher, virtual keyboard, screenshots, recording and state export
+- Device Inspector with battery, FPS, active app, permissions and host compatibility
+- Lenovo IdeaPad Slim 1 15ALC7 profile: Ryzen 5 5500U, 16GB DDR4-3200, 256GB M.2 NVMe
+- Accurate compatibility notice: USB-C is data-only and HDMI is output-only, so the simulator uses a local browser bridge rather than claiming native wired video input
+- 36 applications, Lock Screen, keyboard PIN, Home Screen, widgets, Live Activity island, Control Center, notifications and FaceTime
+- PWA offline shell and responsive desktop/mobile layouts
 
 ## Keyboard map
 
@@ -26,12 +26,10 @@ A desktop-class iPhone web simulator designed to feel like a live device connect
 | Screenshot | `Ctrl/Cmd + Shift + 3` |
 | Control Center | `Ctrl/Cmd + ↑` |
 | Notifications | `Ctrl/Cmd + ↓` |
-| Back / close | `Esc` |
+| Camera Control | `Alt + C` |
+| Device specifications | `Alt + I` |
+| Exit Presentation | `Esc` |
 
-## Run locally
+## Legal
 
-```bash
-python3 -m http.server 8000
-```
-
-Camera, microphone and display recording require browser permission and HTTPS in production.
+This is an independent educational web simulator. It does not contain Apple firmware, is not an Apple product, and is not endorsed by Apple or Lenovo. Hardware facts are used only for compatibility and educational reference.
